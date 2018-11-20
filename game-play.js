@@ -92,6 +92,7 @@ function mouseUpHandler(){
     let lettersPicked = [];
     highlightLine.map(item => lettersPicked.push($(item).children().text()))
     checkWord(lettersPicked.join(""))
+    checkWord(lettersPicked.reverse().join("")) //sometimes registers backwards
 
     mouseLeaveHandler();
     $(startPoint).css('background-color', 'white');
@@ -100,20 +101,30 @@ function mouseUpHandler(){
 
 
 function checkWord(str){
-    wordArray.indexOf(str) === -1 ? noMatch(str) : match(str)
+    wordlist.indexOf(str) === -1 ? noMatch(str) : match(str)
 }
 
 function noMatch(str){
-    console.log('No Match', str)
+    // console.log('No Match', str)
 }
 
 function match(str){
     $(`p:contains(${str})`).css("text-decoration", "line-through");
-    wordArray.splice(wordArray.indexOf(str), 1);
-    console.log('match', str, wordArray);
-    if(wordArray.length === 0){
+    wordlist.splice(wordlist.indexOf(str), 1);
+    // console.log('match', str, wordlist);
+    if(wordlist.length === 0){
         winner();
     }
+}
+
+function drawLine(){
+    var $this = $(this);
+    var offset = $this.offset();
+    var width = $this.width();
+    var height = $this.height();
+
+    var centerX = offset.left + width / 2;
+    var centerY = offset.top + height / 2;
 }
 
 function winner(){
@@ -124,7 +135,7 @@ function winner(){
 
 function playAgain(){
     $(".modal").hide();
-    generateWordArray()
+    createWordPuzzle();
     makeBoard();
     makeList();
     clickHandlers(true);

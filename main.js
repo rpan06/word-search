@@ -1,7 +1,7 @@
 $(document).ready(start);
 
 function start(){
-    generateWordArray();
+    // generateWordArray();
     createWordPuzzle();
     makeBoard();
     makeList();

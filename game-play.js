@@ -1,14 +1,31 @@
 let startPoint = null;
 let highlightLine = [];
+let endPoint = null;
 
 function clickHandlers(isThisPlayAgain = false){
     $('.square').mousedown(mouseDownHandler)
     $('.square').mouseenter(mouseEnterHandler)
     $('.square').mouseleave(mouseLeaveHandler)
     $('.square').mouseup(mouseUpHandler)
+    $('body').click(handler)
     if(!isThisPlayAgain){
         $('#play-again').click(playAgain)
     }
+}
+
+function handler(e) {
+    e = e || window.event;
+
+    var pageX = e.pageX;
+    var pageY = e.pageY;
+
+    // IE 8
+    if (pageX === undefined) {
+        pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+        pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+
+    console.log('mouse is here:', pageX, pageY);
 }
 
 function mouseDownHandler(){
@@ -86,7 +103,7 @@ function getLineCoordinates(start, stop){
 }
 
 function mouseUpHandler(){
-    let endPoint = event.target
+    endPoint = event.target
     // console.log('Final Point', endPoint)
 
     let lettersPicked = [];
@@ -97,6 +114,7 @@ function mouseUpHandler(){
     mouseLeaveHandler();
     $(startPoint).css('background-color', 'white');
     startPoint = null;
+    endPoint = null;
 }
 
 
@@ -111,6 +129,7 @@ function noMatch(str){
 function match(str){
     $(`p:contains(${str})`).css("text-decoration", "line-through");
     wordlist.splice(wordlist.indexOf(str), 1);
+    drawLine();
     // console.log('match', str, wordlist);
     if(wordlist.length === 0){
         winner();
@@ -118,16 +137,47 @@ function match(str){
 }
 
 function drawLine(){
-    var $this = $(this);
+    const start = getCenter(startPoint)
+    const stop = getCenter(endPoint)
+    console.log(start,stop)
+
+    var c = $("#myCanvas")[0];
+    var ctx=c.getContext("2d");
+    ctx.lineCap="round";
+    ctx.lineWidth = 30;
+    ctx.strokeStyle = `rgb(${randomNumber()},${randomNumber()},${randomNumber()}, 0.25)`;
+    ctx.beginPath();
+    ctx.moveTo(start.x,start.y);
+    ctx.lineTo(stop.x,stop.y);
+    ctx.stroke();
+}
+
+function randomNumber(){
+    return Math.floor(Math.random() * 256)
+}
+
+function getCenter(point){
+    var $this = $(point);
     var offset = $this.offset();
     var width = $this.width();
     var height = $this.height();
 
     var centerX = offset.left + width / 2;
     var centerY = offset.top + height / 2;
+
+    //Getting base coordinates to subtract from original
+    //Gets relative
+    const cornerGameBoard = $('[column=0][row=0]').offset();
+    centerX -= cornerGameBoard.left
+    centerY -= cornerGameBoard.top
+
+    return {x : centerX, y : centerY}
 }
 
 function winner(){
+    var c = $("#myCanvas")[0];
+    var ctx=c.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     $(".gameboard").empty();
     $(".wordlist").empty();
     $(".modal").show();

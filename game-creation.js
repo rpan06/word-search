@@ -42,7 +42,7 @@ function restartCreateWordPuzzle(){
 }
 
 function getNewWord(){
-    const randomNum = Math.floor(Math.random() * 77 + 1)
+    const randomNum = Math.floor(Math.random() * 77)
     return dictionary[randomNum]
 }
 

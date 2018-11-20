@@ -11,9 +11,21 @@ body, html{
     text-align: center;
 }
 
-.gameboard, .wordlist{
-    display: inline-block;
+.container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.gameboard, .wordlist, canvas{
+    /* display: inline-block; */
+    position: absolute;
     margin: 10px;
+}
+
+.wordlist {
+    right: 15%
 }
 
 .square {
@@ -31,4 +43,11 @@ p {
 
 .modal {
     display: none;
+}
+
+#myCanvas {
+    pointer-events: none;
+    width: 510px;
+    height: 510px;
+    z-index: 1;
 }

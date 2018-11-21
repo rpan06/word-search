@@ -4,8 +4,8 @@
 
 
 // The list of all the possible directions
-const allDirections = ['horizontal','vertical','diagonal','diagonalUp','verticalUp'];
-// 'horizontalBack','diagonalBack','diagonalUpBack'
+const allDirections = ['horizontal','vertical','diagonal','diagonalUp'];
+// 'horizontalBack','verticalUp','diagonalBack','diagonalUpBack'
 
 
 // The definition of the direction, calculates the next square given a

@@ -142,6 +142,11 @@ function drawLine(){
     console.log(start,stop)
 
     var c = $("#myCanvas")[0];
+
+    //set the width and height properly
+    c.width = c.offsetWidth;
+    c.height = c.offsetHeight;
+    
     var ctx=c.getContext("2d");
     ctx.lineCap="round";
     ctx.lineWidth = 30;

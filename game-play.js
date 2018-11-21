@@ -123,12 +123,8 @@ function match(str){
 function drawLine(){
     const start = getCenter(startPoint)
     const stop = getCenter(endPoint)
-    
-    var c = $("#myCanvas")[0];
 
-    //set the width and height properly
-    c.width = c.offsetWidth;
-    c.height = c.offsetHeight;
+    var c = $("#myCanvas")[0];
 
     var ctx=c.getContext("2d");
     ctx.lineCap="round";

@@ -159,9 +159,10 @@ function getCenter(point){
 }
 
 function winner(){
+    console.log('winner')
     var c = $("#myCanvas")[0];
     var ctx=c.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, c.width, c.height)
     $(".gameboard").empty();
     $(".wordlist").empty();
     $(".modal").show();

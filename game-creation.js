@@ -31,8 +31,8 @@ function createWordPuzzle(){
         return;
       }
     }
-    console.log(setUp)
-    console.log(wordlist)
+    // console.log(setUp)
+    // console.log(wordlist)
 }
 
 function restartCreateWordPuzzle(){

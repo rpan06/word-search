@@ -7,25 +7,9 @@ function clickHandlers(isThisPlayAgain = false){
     $('.square').mouseenter(mouseEnterHandler)
     $('.square').mouseleave(mouseLeaveHandler)
     $('.square').mouseup(mouseUpHandler)
-    $('body').click(handler)
     if(!isThisPlayAgain){
         $('#play-again').click(playAgain)
     }
-}
-
-function handler(e) {
-    e = e || window.event;
-
-    var pageX = e.pageX;
-    var pageY = e.pageY;
-
-    // IE 8
-    if (pageX === undefined) {
-        pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-
-    console.log('mouse is here:', pageX, pageY);
 }
 
 function mouseDownHandler(){
@@ -139,14 +123,9 @@ function match(str){
 function drawLine(){
     const start = getCenter(startPoint)
     const stop = getCenter(endPoint)
-    console.log(start,stop)
 
     var c = $("#myCanvas")[0];
 
-    //set the width and height properly
-    c.width = c.offsetWidth;
-    c.height = c.offsetHeight;
-    
     var ctx=c.getContext("2d");
     ctx.lineCap="round";
     ctx.lineWidth = 30;
@@ -180,9 +159,10 @@ function getCenter(point){
 }
 
 function winner(){
+    console.log('winner')
     var c = $("#myCanvas")[0];
     var ctx=c.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, c.width, c.height)
     $(".gameboard").empty();
     $(".wordlist").empty();
     $(".modal").show();
